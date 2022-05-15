@@ -4,19 +4,19 @@ const csso = require('postcss-csso');
 const pimport = require('postcss-import');
 
 module.exports = (config) => {
+  config.addTemplateFormats('css');
+
   config.addExtension('css', {
     outputFileExtension: 'css',
     compile: async (inputContent, inputPath) => {
-      if (inputPath.endsWith('.css')) {
-        let output = await postcss([
-          pimport,
-          autoprefixer,
-          csso
-        ]).process(inputContent, { from: inputPath });
+      let output = await postcss([
+        pimport,
+        autoprefixer,
+        csso
+      ]).process(inputContent, { from: inputPath });
 
-        return async () => {
-          return output.css;
-        }
+      return async () => {
+        return output.css;
       }
     }
   });
@@ -35,7 +35,7 @@ module.exports = (config) => {
     markdownTemplateEngine: 'njk',
     htmlTemplateEngine: 'njk',
     templateFormats: [
-      'md', 'njk', 'css',
+      'md', 'njk'
     ],
   };
 };
