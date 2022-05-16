@@ -9,6 +9,10 @@ module.exports = (config) => {
   config.addExtension('css', {
     outputFileExtension: 'css',
     compile: async (inputContent, inputPath) => {
+      if (inputPath !== './src/styles/index.css') {
+        return;
+      }
+
       return async () => {
         let output = await postcss([
           pimport,
