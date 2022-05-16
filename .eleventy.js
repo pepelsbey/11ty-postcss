@@ -9,13 +9,13 @@ module.exports = (config) => {
   config.addExtension('css', {
     outputFileExtension: 'css',
     compile: async (inputContent, inputPath) => {
-      let output = await postcss([
-        pimport,
-        autoprefixer,
-        csso
-      ]).process(inputContent, { from: inputPath });
-
       return async () => {
+        let output = await postcss([
+          pimport,
+          autoprefixer,
+          csso
+        ]).process(inputContent, { from: inputPath });
+
         return output.css;
       }
     }
